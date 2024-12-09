@@ -105,7 +105,7 @@ if(isPremative == 0) {
         }
         resslt.innerHTML = `
         <h1>Let, all the processes arrived at the same time (at the time 0)</h1>
-        <h2>Average waiting time = ${calc / processes.length}}ns</h2>
+        <h2>Average waiting time = ${calc / processes.length}ns</h2>
         `
     }
     
