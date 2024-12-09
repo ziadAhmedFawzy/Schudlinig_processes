@@ -38,13 +38,13 @@ root.innerHTML = `
     </tr>
 </thead>
 <tbody>
-${nums
-.map((e, i) => 
-`<tr>
-<td>P${i + 1}</td>
-<td>${e}</td>
-</tr>`
-)
+    ${nums
+    .map((e, i) => 
+    `<tr>
+        <td>P${i + 1}</td>
+        <td>${e}</td>
+    </tr>`
+    )
 .join('')}
 </tbody>
 </table>
