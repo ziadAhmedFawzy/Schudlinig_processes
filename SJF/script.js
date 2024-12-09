@@ -40,6 +40,7 @@ content.innerHTML = `
 `
 
 result.innerHTML = `
+    <h1>Let, all the processes arrived at the same time (at the time 0)</h1>
     <h2>Average waiting time = ${parseFloat(calculatAverageWaitingTimeSJS(...nums)).toFixed(2)}ns</h2>
     <h2>Average turnaround time = ${parseFloat(calculatAverageTurnaroundTimeSJS(...nums)).toFixed(2)}ns</h2>
 `
