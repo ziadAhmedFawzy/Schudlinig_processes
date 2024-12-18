@@ -62,11 +62,11 @@ if(isPremative == 0) {
             processes.push(process);
         }
         /*
-                  0
-        0 + 12 = 12
-        12 + 4 = 16
-        16 + 6 = 22
-        22 + 8 = 30
+                   0
+        0 + 12 =  12
+        12 + 4 =  16
+        16 + 6 =  22
+        22 + 8 =  30
         30 + 10 = 40
     
         p2 p4 p5 p3 p1
@@ -109,4 +109,77 @@ if(isPremative == 0) {
         `
     }
     
+}
+else {
+    /*
+    p1 12 0    = 9
+    p2 8  3    = 6 => rem 2 => (true)
+    p3 3  5    (true)
+    p4 7  12    (true)
+
+    wait = 0
+
+    p1 p2 p2 p3 p2 p2 p4 p1
+    0  3  5  8  12 14 21  30
+    */ 
+   // تعريف هيكل البيانات للعمليات
+class Process {
+    constructor(name, burstTime) {
+        this.name = name; // اسم العملية
+        this.burstTime = burstTime; // الوقت الذي تستغرقه العملية
+        this.waitTime = 0; // الوقت الذي تنتظر فيه العملية
+        this.turnAroundTime = 0; // الوقت الإجمالي الذي تستغرقه العملية (الانتظار + التنفيذ)
+    }
+}
+
+// خوارزمية SJF غير مسبقة
+function sjf(processes) {
+    // ترتيب العمليات حسب الوقت الذي تستغرقه (burst time) بترتيب تصاعدي
+    processes.sort((a, b) => a.burstTime - b.burstTime);
+
+    let totalWaitTime = 0;
+    let totalTurnAroundTime = 0;
+
+    // حساب أوقات الانتظار ووقت الانتهاء
+    for (let i = 0; i < processes.length; i++) {
+        if (i === 0) {
+            processes[i].waitTime = 0; // العملية الأولى لا تنتظر
+        } else {
+            processes[i].waitTime = processes[i - 1].waitTime + processes[i - 1].burstTime;
+        }
+
+        processes[i].turnAroundTime = processes[i].waitTime + processes[i].burstTime;
+
+        totalWaitTime += processes[i].waitTime;
+        totalTurnAroundTime += processes[i].turnAroundTime;
+    }
+
+    // حساب متوسط وقت الانتظار ووقت الانتهاء
+    let avgWaitTime = totalWaitTime / processes.length;
+    let avgTurnAroundTime = totalTurnAroundTime / processes.length;
+
+    // طباعة النتائج
+    console.log("Process\tBurst Time\tWait Time\tTurnaround Time");
+    processes.forEach(process => {
+        console.log(`${process.name}\t\t${process.burstTime}\t\t${process.waitTime}\t\t${process.turnAroundTime}`);
+    });
+
+    console.log(`\nAverage Waiting Time: ${avgWaitTime}`);
+    console.log(`Average Turnaround Time: ${avgTurnAroundTime}`);
+}
+
+let p1 = prompt('enter p1')
+let p2 = prompt('enter p2')
+let p3 = prompt('enter p3')
+let p4 = prompt('enter p4')
+
+let processes = [
+    new Process("P1", p1),
+    new Process("P2", p2),
+    new Process("P3", p3),
+    new Process("P4", p4)
+];
+
+sjf(processes);
+
 }
